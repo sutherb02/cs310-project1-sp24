@@ -4,7 +4,6 @@ import com.github.cliftonlabs.json_simple.*;
 import com.opencsv.*;
 import java.io.BufferedReader;
 import java.io.File;
-//import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -14,7 +13,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
-//import java.util.LinkedHashMap;
 
 public class ClassSchedule {
     
@@ -35,74 +33,6 @@ public class ClassSchedule {
     private final String SCHEDULE_COL_HEADER = "schedule";
     private final String INSTRUCTOR_COL_HEADER = "instructor";
     private final String SUBJECTID_COL_HEADER = "subjectid";
-    
-    /*
-    public String convertCsvToJsonString(List<String[]> csv) throws FileNotFoundException {
-        List<LinkedHashMap<String, Object>> sections = new ArrayList<>();
-        LinkedHashMap<String, String> scheduleTypeMap = new LinkedHashMap<>();
-        LinkedHashMap<String, String> subjectMap = new LinkedHashMap<>();
-        LinkedHashMap<String, LinkedHashMap<String, Object>> courseMap = new LinkedHashMap<>(); // New map for courses
-
-        Iterator<String[]> iterator = csv.iterator();
-        String[] headers = iterator.next(); // Get headers
-
-        while (iterator.hasNext()) {
-            String[] row = iterator.next();
-
-            LinkedHashMap<String, Object> section = new LinkedHashMap<>();
-            for (int i = 0; i < headers.length; i++) {
-                String key = headers[i];
-                String value = row[i];
-                switch (key) {
-                    case CRN_COL_HEADER, SUBJECTID_COL_HEADER, NUM_COL_HEADER, SECTION_COL_HEADER, TYPE_COL_HEADER, START_COL_HEADER, END_COL_HEADER, DAYS_COL_HEADER, WHERE_COL_HEADER -> section.put(key, Integer.parseInt(value));
-                    case INSTRUCTOR_COL_HEADER -> {
-                        // Add instructor as a list
-                        List<String> instructors = new ArrayList<>();
-                        instructors.add(value);
-                        section.put(key, instructors);
-                    }
-                    case SUBJECT_COL_HEADER -> {
-                        // Populate subject map
-                        String subjectId = row[i].split(" ")[0]; // Extract subject id
-                        String subjectName = row[i].split(" ", 2)[1]; // Extract subject name
-                        subjectMap.put(subjectId, subjectName);
-                    }
-                    case DESCRIPTION_COL_HEADER -> {
-                        // Populate course map
-                        String courseId = row[i]; // Extract course id
-                        LinkedHashMap<String, Object> courseDetails = new LinkedHashMap<>();
-                        courseDetails.put("subjectid", courseId.split(" ")[0]); // Extract subject id from course id
-                        courseDetails.put("num", courseId.split(" ")[1]); // Extract course number from course id
-                        courseDetails.put("description", value);
-                        // Assuming credits are in the next column
-                        courseDetails.put("credits", row[i + 1]);
-                        courseMap.put(courseId, courseDetails);
-                    }
-                    case SCHEDULE_COL_HEADER -> {
-                        // Extract and map schedule types
-                        String type = (String) section.get(TYPE_COL_HEADER);
-                        if (!scheduleTypeMap.containsKey(type)) {
-                            scheduleTypeMap.put(type, value);
-                        }
-                    }
-                }
-            }
-
-        sections.add(section);
-    }
-
-    LinkedHashMap<String, Object> jsonObject = new LinkedHashMap<>();
-    jsonObject.put("scheduletype", scheduleTypeMap);
-    jsonObject.put("subject", subjectMap); // Add subject map to JSON object
-    jsonObject.put("course", courseMap); // Add course map to JSON object
-    jsonObject.put("section", sections);
-    
-    String jsonString = Jsoner.serialize(jsonObject);
-        
-    return jsonString;
-}
-    */
-    
     
     public String convertCsvToJsonString(List<String[]> csv) {
         // initializing jsonObjects for different parts
@@ -192,7 +122,6 @@ public class ClassSchedule {
     }
 
     public String convertJsonToCsvString(JsonObject json) {
-      
         // getting jsonObjects 
         JsonObject scheduletype = (JsonObject) json.get("scheduletype");
         JsonObject subjects = (JsonObject) json.get("subject");
